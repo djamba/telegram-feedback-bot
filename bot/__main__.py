@@ -7,7 +7,7 @@ from aiogram.client.telegram import TelegramAPIServer
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler
 from bot.handlers import setup_routers
 from fluent.runtime import FluentLocalization, FluentResourceLoader
-from bot.commandsworker import set_bot_commands
+from bot.commandsworker import set_bot_info
 from bot.middlewares import L10nMiddleware
 from pathlib import Path
 
@@ -26,7 +26,7 @@ async def main():
     # Создание объектов Fluent
     # FluentResourceLoader использует фигурные скобки, поэтому f-strings здесь нельзя
     l10n_loader = FluentResourceLoader(str(locales_dir) + "/{locale}")
-    l10n = FluentLocalization(["ru"], ["strings.ftl", "errors.ftl"], l10n_loader)
+    l10n = FluentLocalization(["ru", "en"], ["strings.ftl", "errors.ftl"], l10n_loader)
 
     bot = Bot(token=config.bot_token.get_secret_value())
     dp = Dispatcher()
@@ -40,7 +40,7 @@ async def main():
     dp.update.middleware(L10nMiddleware(l10n))
 
     # Регистрация /-команд в интерфейсе
-    await set_bot_commands(bot)
+    await set_bot_info(bot, l10n)
 
     try:
         if not config.webhook_domain:

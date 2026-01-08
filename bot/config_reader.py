@@ -7,11 +7,11 @@ class Settings(BaseSettings):
     bot_token: SecretStr
     admin_chat_id: int
     remove_sent_confirmation: bool
-    webhook_domain: Optional[str]
-    webhook_path: Optional[str]
+    webhook_domain: Optional[str] = None
+    webhook_path: Optional[str] = None
     app_host: Optional[str] = "0.0.0.0"
     app_port: Optional[int] = 9000
-    custom_bot_api: Optional[str]
+    custom_bot_api: Optional[str] = None
 
     class Config:
         env_file = '.env'
