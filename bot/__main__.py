@@ -26,7 +26,7 @@ async def main():
     # Создание объектов Fluent
     # FluentResourceLoader использует фигурные скобки, поэтому f-strings здесь нельзя
     l10n_loader = FluentResourceLoader(str(locales_dir) + "/{locale}")
-    l10n = FluentLocalization(["ru", "en"], ["strings.ftl", "errors.ftl"], l10n_loader)
+    l10n = FluentLocalization(["en", "ru"], ["strings.ftl", "errors.ftl"], l10n_loader)
 
     bot = Bot(token=config.bot_token.get_secret_value())
     dp = Dispatcher()
